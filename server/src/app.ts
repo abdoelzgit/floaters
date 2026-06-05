@@ -9,6 +9,10 @@ import flightsRouter from "./routes/flights";
 import bookingsRouter from "./routes/bookings";
 import paymentsRouter from "./routes/payments";
 import dashboardRouter from "./routes/dashboard";
+import airportsRouter from "./routes/airports";
+import airlinesRouter from "./routes/airlines";
+import airplanesRouter from "./routes/airplanes";
+import seatsRouter from "./routes/seats";
 
 // Handle BigInt JSON serialization issue
 (BigInt.prototype as any).toJSON = function (): string {
@@ -39,5 +43,9 @@ app.use("/api/flights", flightsRouter);
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/payments", paymentsRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/airports", airportsRouter);
+app.use("/api/airlines", airlinesRouter);
+app.use("/api/airplanes", airplanesRouter);
+app.use("/api/seats", seatsRouter);
 
 export default app;

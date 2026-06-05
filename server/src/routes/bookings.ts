@@ -45,6 +45,10 @@ router.get("/:id", authenticateToken, async (req: AuthenticatedRequest, res: Res
   const { id } = req.params;
 
   try {
+    if (typeof id !== "string") {
+  res.status(400).json({ message: "Invalid booking ID parameter" });
+  return;
+}
     const booking = await prisma.booking.findUnique({
       where: { id: BigInt(id) },
       include: {
