@@ -21,7 +21,10 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
 // 2. Get airplane by ID (Read Detail)
 router.get("/:id", async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  try {
+  try {if (typeof id !== "string") {
+  res.status(400).json({ message: "Invalid flight ID parameter" });
+  return;
+}
     const airplane = await prisma.airplane.findUnique({
       where: { id: BigInt(id) },
       include: { airline: true, seats: true },
@@ -99,6 +102,10 @@ router.put(
     });
 
     try {
+      if (typeof id !== "string") {
+  res.status(400).json({ message: "Invalid airplane ID parameter" });
+  return;
+}
       const airplane = await prisma.airplane.update({
         where: { id: BigInt(id) },
         data: updateData,
@@ -119,6 +126,10 @@ router.delete(
     const { id } = req.params;
 
     try {
+      if (typeof id !== "string") {
+  res.status(400).json({ message: "Invalid airplane ID parameter" });
+  return;
+}
       await prisma.airplane.delete({
         where: { id: BigInt(id) },
       });
